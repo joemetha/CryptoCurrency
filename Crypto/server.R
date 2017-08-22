@@ -3,6 +3,8 @@ library(XML)
 library(plotrix)
 library(quantmod)
 library(anytime)
+library(rvest)
+
 
 
 
@@ -15,15 +17,30 @@ urlETC <- "http://coinmarketcap.com/currencies/ethereum-classic/historical-data/
 urlDASH <- "http://coinmarketcap.com/currencies/dash/historical-data/"
 urlXEM <- "http://coinmarketcap.com/currencies/nem/historical-data/"
 
-
-popBTC <- readHTMLTable(urlBTC, which = 2)
-popETH <- readHTMLTable(urlETH, which = 2)
-popLTC <- readHTMLTable(urlLTC, which = 2)
-popZEC <- readHTMLTable(urlZEC, which = 2)
-popXRP <- readHTMLTable(urlXRP, which = 2)
-popETC <- readHTMLTable(urlETC, which = 2)
-popDASH <- readHTMLTable(urlDASH, which = 2)
-popXEM <- readHTMLTable(urlXEM, which = 2)
+popBTC <-html(urlBTC)%>%
+  html_table(fill=TRUE)%>%
+  .[[1]]
+popETH <- html(urlETH)%>%
+  html_table(fill=TRUE)%>%
+  .[[1]]
+popLTC <- html(urlLTC)%>%
+  html_table(fill=TRUE)%>%
+  .[[1]]
+popZEC <- html(urlZEC)%>%
+  html_table(fill=TRUE)%>%
+  .[[1]]
+popXRP <- html(urlXRP)%>%
+  html_table(fill=TRUE)%>%
+  .[[1]]
+popETC <- html(urlETC)%>%
+  html_table(fill=TRUE)%>%
+  .[[1]]
+popDASH <- html(urlDASH)%>%
+  html_table(fill=TRUE)%>%
+  .[[1]]
+popXEM <- html(urlXEM)%>%
+  html_table(fill=TRUE)%>%
+  .[[1]]
 
 BTC <-as.numeric(as.character(popBTC$Close[30:1]))
 ETH <-as.numeric(as.character(popETH$Close[30:1]))
@@ -227,3 +244,4 @@ function(input, output) {
   })
   
 }
+
